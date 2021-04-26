@@ -1,85 +1,43 @@
 <template>
-  <div class="container">
-    <Header
-      @toggle-add-task="toggleAddTask"
-      title="Task Tracker"
-      :showAddTask="showAddTask"
-    />
-    <router-view :showAddTask="showAddTask"></router-view>
-    <Footer />
+  <div id="app">
+    <navbar v-bind:username="username" />
+    <div class="container">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header'
-import Footer from './components/Footer'
-
+import uuid from "uuid";
+import Login from "./components/Login";
+import username from "./components/Login";
+import navbar from "./components/navbar";
+import axios from "axios";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Header,
-    Footer,
+    navbar
   },
   data() {
     return {
-      showAddTask: false,
-    }
+      //username
+      username: "testing in vue"
+    };
   },
   methods: {
-    toggleAddTask() {
-      this.showAddTask = !this.showAddTask
-    },
+    /*addUsername() {
+        const newName = {
+          id: uuid.v4(),
+          username: this.username
+        }
+         //send up to parent
+      this.$emit('add-name', newName)*/
   },
-}
+  created() {
+    /*axios.get('https://api.twitter.com/1.1/users/show.json?user_id={dGcpjzT9XTZWdYw9EiciGwH0CiB3}')
+        .then(res => this.username = res.data)
+        .catch(err => console.log(err));*/
+  }
+};
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-}
-
-.container {
-  max-width: 500px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 1px solid steelblue;
-  padding: 30px;
-  border-radius: 5px;
-}
-
-.btn {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-}
-</style>
